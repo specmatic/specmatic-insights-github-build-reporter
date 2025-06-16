@@ -4,7 +4,8 @@
     "/dist",
     "/build",
     "/coverage",
-    "/src/scratch"
+    "/src/scratch",
+    "jest.config.js"
   ],
   "include": [
     "**/*.ts", "**/*.mjs"
@@ -14,7 +15,8 @@
       "ESNext"
     ],
     "types": [
-      "node"
+      "node",
+      "jest"
     ],
     "outDir": "./dist",
     "isolatedModules": true,
