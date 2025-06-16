@@ -8,12 +8,12 @@ import {
 } from "./types";
 
 // Read specmatic config - parses the file based on extension (YAML or JSON)
-const readSpecmaticConfig = (configPath?: string): Record<string, any> | undefined => {
+const readSpecmaticConfig = (configPath?: string): Record<string, never> | undefined => {
   if (!configPath) {
     logInfoStep("No specmatic config path provided");
     return undefined;
   }
-  
+
   // Read the file content
   const content = safelyReadFile("specmatic configuration", configPath);
   if (!content) {
@@ -21,33 +21,20 @@ const readSpecmaticConfig = (configPath?: string): Record<string, any> | undefin
     return undefined;
   }
 
-  // Parse based on file extension with fallbacks
+  // Parse based on file extension
   try {
     // Prefer YAML parsing for .yaml/.yml files
     if (configPath.endsWith('.yaml') || configPath.endsWith('.yml')) {
-      try {
-        const yamlResult = yaml.parse(content);
-        logInfoStep(`Parsed YAML config from ${configPath}`);
-        return yamlResult;
-      } catch (yamlError) {
-        // Fallback to JSON in case it's actually JSON with a YAML extension
-        logInfoStep(`Failed to parse as YAML, trying JSON: ${yamlError}`);
-        return JSON.parse(content);
-      }
-    } else {
-      // For .json or any other extension, try JSON first
-      try {
-        const jsonResult = JSON.parse(content);
-        logInfoStep(`Parsed JSON config from ${configPath}`);
-        return jsonResult;
-      } catch (jsonError) {
-        // Fallback to YAML in case it's actually YAML with a JSON extension
-        logInfoStep(`Failed to parse as JSON, trying YAML: ${jsonError}`);
-        return yaml.parse(content);
-      }
+      const yamlResult = yaml.parse(content);
+      logInfoStep(`Parsed YAML config from ${configPath}`);
+      return yamlResult;
     }
+    // For .json or any other extension, try JSON first
+    const jsonResult = JSON.parse(content);
+    logInfoStep(`Parsed JSON config from ${configPath}`);
+    return jsonResult;
   } catch (e) {
-    logErrorStep(`Failed to parse specmatic config from ${configPath} as either JSON or YAML:`, e);
+    logErrorStep(`Failed to parse specmatic config from ${configPath} as either YAML or JSON:`, e);
     return undefined;
   }
 };

@@ -13,11 +13,11 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - name: Docker Login
-        run: echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+        run: echo ${{ secrets.SPECMATIC_DOCKER_HUB_TOKEN }} | docker login -u ${{ vars.SPECMATIC_DOCKER_HUB_USERNAME }} --password-stdin
 
       - name: Read version from package.json
         id: read_version
@@ -28,10 +28,10 @@ jobs:
           echo "VERSION=$version" >> "$GITHUB_OUTPUT"
 
       - name: Build Docker Image
-        run: docker build --no-cache -t znsio/specmatic-insights-github-build-reporter:${{ steps.read_version.outputs.VERSION }} .
+        run: docker build --no-cache -t specmatic/specmatic-insights-github-build-reporter:${{ steps.read_version.outputs.VERSION }} .
 
       - name: Push Docker Image
-        run: docker push znsio/specmatic-insights-github-build-reporter:${{ steps.read_version.outputs.VERSION }}
+        run: docker push specmatic/specmatic-insights-github-build-reporter:${{ steps.read_version.outputs.VERSION }}
 
       - name: Tag as latest
-        run: docker tag znsio/specmatic-insights-github-build-reporter:${{ steps.read_version.outputs.VERSION }} znsio/specmatic-insights-github-build-reporter:latest && docker push znsio/specmatic-insights-github-build-reporter:latest
+        run: docker tag specmatic/specmatic-insights-github-build-reporter:${{ steps.read_version.outputs.VERSION }} specmatic/specmatic-insights-github-build-reporter:latest && docker push specmatic/specmatic-insights-github-build-reporter:latest

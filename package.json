@@ -1,7 +1,7 @@
 {
   "name": "specmatic-insights-github-build-reporter",
-  "version": "1.0.11",
-  "description": "",
+  "version": "1.1.1",
+  "description": "Specmatic Insights Github build reporter",
   "main": "index.js",
   "bin": "dist/src/index.js",
   "scripts": {
@@ -14,19 +14,22 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "prettier": "^3.2.5",
-    "yargs": "^15.4.1",
-    "yaml": "^2.3.4",
-    "zod": "^3.22.4"
+    "prettier": "^3.5.3",
+    "yaml": "^2.8.0",
+    "yargs": "^18.0.0",
+    "zod": "^3.25.56"
   },
   "devDependencies": {
-    "@types/node": "^20.8.9",
-    "@types/yargs": "^15.0.14",
-    "eslint": "^8.52.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-config-rakeshpai": "^1.0.4",
-    "husky": "^8.0.3",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.2.2"
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.28.0",
+    "@types/node": "^22.12.30",
+    "@types/yargs": "^17.0.33",
+    "@typescript-eslint/eslint-plugin": "^8.33.1",
+    "@typescript-eslint/parser": "^8.33.1",
+    "eslint": "^9.28.0",
+    "eslint-config-prettier": "^10.1.5",
+    "husky": "^9.1.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
   }
 }

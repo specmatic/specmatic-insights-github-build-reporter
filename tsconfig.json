@@ -7,7 +7,7 @@
     "/src/scratch"
   ],
   "include": [
-    "**/*.ts"
+    "**/*.ts", "**/*.mjs"
   ],
   "compilerOptions": {
     "lib": [
@@ -22,7 +22,7 @@
     "jsx": "react-jsx",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "target": "ES2015",
+    "target": "ES2020",
     "module": "CommonJS",
     "strict": true,
     "baseUrl": "."

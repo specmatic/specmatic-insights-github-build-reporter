@@ -2,7 +2,6 @@
 import fs from "fs";
 import https from "https";
 import { join } from "path";
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 import { URL } from "url";
 import getCliArgs from "./get-cli-args";
 import packageJSON from "../package.json";
@@ -35,13 +34,12 @@ const postToSpecmaticInsights = async (
     );
   }
 
-  // eslint-disable-next-line no-console
   console.log("Successfully posted build report to Specmatic Insights");
 };
 
 (async () => {
   logInfoStep(`specmatic-insights-build-reporter@${packageJSON.version}`);
-  const { dryRun, noVerify, specmaticInsightsHost, buildMetaData, ...cliArgs } = getCliArgs();
+  const { dryRun, noVerify, specmaticInsightsHost, buildMetaData, ...cliArgs } = await getCliArgs();
 
   const report = await generateReport({
     ...(cliArgs as unknown as Record<string, string | undefined>),
