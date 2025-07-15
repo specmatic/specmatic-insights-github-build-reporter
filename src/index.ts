@@ -21,7 +21,10 @@ const postToSpecmaticInsights = async (
 
   const response = await fetch(`${url.origin}/api/github-build-report`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { 
+      "Content-Type": "application/json",
+      "User-Agent": `specmatic-insights-github-build-reporter/${packageJSON.version} (Node.js ${process.version})`
+    },
     body: JSON.stringify(report),
     ...(url.protocol === "https:" && noVerify ? { agent: httpsAgent } : {}),
   });
