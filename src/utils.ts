@@ -1,5 +1,5 @@
 import fs from "fs";
-import { resolve } from "path/posix";
+import * as path from "path";
 import { z } from "zod";
 
 export const logInfoStep = (...details: unknown[]) => {
@@ -14,20 +14,22 @@ export const logErrorStep = (...details: unknown[]) => {
   console.log("\x1b[31m%s\x1b[0m", "  ×", ...details);
 };
 
-const readFile = (path: string) =>
-  fs.readFileSync(resolve(process.cwd(), path), "utf-8");
+const readFile = (filePath: string): string => {
+  const resolver = process.platform === "win32" ? path.win32.resolve : path.resolve;
+  return fs.readFileSync(resolver(process.cwd(), filePath), "utf-8");
+};
 
-export const safelyReadFile = (description: string, path?: string) => {
-  if (!path) return undefined;
+export const safelyReadFile = (description: string, filePath?: string): string | undefined => {
+  if (!filePath) return undefined;
 
   try {
-    return readFile(path);
-  } catch (e) {
-    logErrorStep(`Error reading ${description}: ${path}`, e);
+    return readFile(filePath);
+  } catch (e: unknown) {
+    logErrorStep(`Error reading ${description}: ${filePath}`, e);
   }
 };
 
-export const readEnvVar = (name: string) => {
+export const readEnvVar = (name: string): string => {
   const value = process.env[name];
   try {
     return z.string().parse(value);

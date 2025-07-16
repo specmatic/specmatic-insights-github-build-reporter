@@ -1,0 +1,28 @@
+{
+  "root": true,
+  "ignorePatterns": ["dist/**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "project": "./tsconfig.json"
+      },
+      "plugins": ["@typescript-eslint"],
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended"
+      ]
+    },
+    {
+      "files": ["*.js", "*.jsx", "*.cjs", "jest.config.js"],
+      "parser": "espree",
+      "env": {
+        "node": true
+      },
+      "parserOptions": {
+        "ecmaVersion": 2020
+      }
+    }
+  ]
+}
