@@ -10,9 +10,13 @@
     "start": "ts-node src/index.ts",
     "prepare": "husky install"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/specmatic/specmatic-insights-github-build-reporter"
+  },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Specmatic Team (info@specmaic.io)",
+  "license": "MIT",
   "dependencies": {
     "prettier": "^3.5.3",
     "yaml": "^2.8.0",
