@@ -1,20 +1,26 @@
-name: Manual Release Build and Docker Image
+name: publish
 
 on:
-  workflow_dispatch:
+  release:
+    types: [published]
+
+permissions:
+  id-token: write  # Required for OIDC (publishing to NPM)
+  contents: read
 
 jobs:
-  build-and-dockerize:
+  publish:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
-          node-version: 22
-          cache: npm
+          node-version: 24
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm install
+      - run: npm test
+      - run: npm run build
+      - run: npm publish
 
       - name: Docker Login
         run: echo ${{ secrets.SPECMATIC_DOCKER_HUB_TOKEN }} | docker login -u ${{ vars.SPECMATIC_DOCKER_HUB_USERNAME }} --password-stdin
@@ -35,3 +41,5 @@ jobs:
 
       - name: Tag as latest
         run: docker tag specmatic/specmatic-insights-github-build-reporter:${{ steps.read_version.outputs.VERSION }} specmatic/specmatic-insights-github-build-reporter:latest && docker push specmatic/specmatic-insights-github-build-reporter:latest
+
+    

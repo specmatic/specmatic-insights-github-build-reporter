@@ -66,7 +66,6 @@ export const specmaticStubUsageReportValidator = specmaticStubUsageReport;
 export type SpecmaticStubUsageReport = z.infer<typeof specmaticStubUsageReport>;
 
 const specmaticCentralRepoReportSpecForHTTP = z.object({
-  serviceType: z.literal("HTTP"),
   operations: z.array(specmaticHTTPOperationBase),
 });
 
