@@ -1,3 +1,12 @@
+# ⚠️⚠️⚠️ Deprecated ⚠️⚠️⚠️
+
+This build reporter is now deprecated. Users are advised to use the `specmatic send-report` command to publish reports to Specmatic Insights. See this [help page](https://docs.specmatic.io/references/migration_guide#2-migrate-from-legacy-insights-reporter-to-specmatic-send-report) for details.
+
+
+The original readme is below.
+
+---
+
 # Specmatic Insights Github Build Reporter
 
 This package runs as part of your CI pipeline to ship [Specmatic](https://specmatic.io/) reports to [Specmatic Insights](https://insights.specmatic.io/).
